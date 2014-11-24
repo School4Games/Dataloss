@@ -1,1 +1,8 @@
 Hallo #
+
+//with a comment for programmers
+here goes some code
+
+void function (){
+	here I write a function;
+}
