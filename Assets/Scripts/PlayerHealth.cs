@@ -4,8 +4,11 @@ using System.Collections;
 public class PlayerHealth : MonoBehaviour 
 {
 	public bool invincible;
-	public int health = 2;
+	public float health = 2f;
+	public float maxHealth =2f;
 	public float timer;
+	private float regenration =1f;
+
 
 	private GameObject score100;
 	private GameObject score500;
@@ -19,7 +22,8 @@ public class PlayerHealth : MonoBehaviour
 	private GameObject enemyDeath;
 	// Use this for initialization
 	void Start () {
-	
+
+		health = maxHealth;
 		score100 = GameObject.Find ("Score100");
 		score500 = GameObject.Find ("Score500");
 		enemyDeath = GameObject.Find ("EnemyDeath");
@@ -40,19 +44,21 @@ public class PlayerHealth : MonoBehaviour
 			timer = 0;
 			invincible = false;
 		}
-		if (health <= 0) 
+		if (health <= 0.0f) 
 		{
 			Destroy(this.gameObject);
 			Time.timeScale = 0;
-				}
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.tag == "Enemy" && !invincible)
 		{
-			health--;
+			health  --;
 			Destroy (col.gameObject);
+			Debug.Log ("yolo");
+
 		}
 
 		else if (col.tag == "Enemy" && invincible) 
@@ -62,6 +68,14 @@ public class PlayerHealth : MonoBehaviour
 			Destroy (col.gameObject);
 			HighScore.score += 500;
 		}
+		if (health < maxHealth) 
+			{
+				health += regenration * Time.deltaTime;
+			}
+		if (health > maxHealth) 
+			{
+				health = maxHealth;
+			}
 		if (col.tag == "Collectible1") 
 		{
 			score100.particleSystem.Emit(1);
@@ -86,5 +100,5 @@ public class PlayerHealth : MonoBehaviour
 				health = -2;
 				Destroy (col.gameObject);
 			}
-		}
+	}
 }

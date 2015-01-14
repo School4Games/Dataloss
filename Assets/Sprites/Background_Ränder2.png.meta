@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: ac076bf7c699f3744b3d855d46c226fd
+guid: 2f41986428de0924fa9375d4c7ada9c0
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: cablebreak_complete
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
