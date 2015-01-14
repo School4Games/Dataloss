@@ -57,7 +57,6 @@ public class PlayerHealth : MonoBehaviour
 		{
 			health  --;
 			Destroy (col.gameObject);
-			Debug.Log ("yolo");
 
 		}
 
