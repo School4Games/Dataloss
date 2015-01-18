@@ -7,7 +7,9 @@ public class PlayerHealth : MonoBehaviour
 	public float health = 2f;
 	public float maxHealth =2f;
 	public float timer;
+	public float hptimer;
 	private float regenration =1f;
+	public float dmg;
 
 
 	private GameObject score100;
@@ -17,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
 	private GameObject megabytetailmid;
 	private GameObject megabytetailmidright;
 	private GameObject megabytetailleft;
-	private GameObject megabytetaillright;
+	private GameObject megabytetailright;
 
 	private GameObject enemyDeath;
 	// Use this for initialization
@@ -32,7 +34,7 @@ public class PlayerHealth : MonoBehaviour
 		megabytetailmid = GameObject.Find ("megabytetailmid");
 		megabytetailmidright = GameObject.Find ("megabytetailmidright");
 		megabytetailleft = GameObject.Find ("megabytetailleft");
-		megabytetaillright = GameObject.Find ("megabytetaillright");
+		megabytetailright = GameObject.Find ("megabytetailright");
 
 	}
 	
@@ -43,6 +45,11 @@ public class PlayerHealth : MonoBehaviour
 		if (timer <= 0) {
 			timer = 0;
 			invincible = false;
+		}
+		hptimer -= Time.deltaTime;
+		if (hptimer <= 0) {
+			hptimer = 0;
+			health = 2;
 		}
 		if (health <= 0.0f) 
 		{
@@ -55,9 +62,10 @@ public class PlayerHealth : MonoBehaviour
 	{
 		if (col.tag == "Enemy" && !invincible)
 		{
-			health  --;
+			health  -= dmg;
 			Destroy (col.gameObject);
-
+			HighScore.multi = 1;
+			hptimer = 4;
 		}
 
 		else if (col.tag == "Enemy" && invincible) 
@@ -67,10 +75,7 @@ public class PlayerHealth : MonoBehaviour
 			Destroy (col.gameObject);
 			HighScore.score += 500;
 		}
-		if (health < maxHealth) 
-			{
-				health += regenration * Time.deltaTime;
-			}
+
 		if (health > maxHealth) 
 			{
 				health = maxHealth;
@@ -81,6 +86,7 @@ public class PlayerHealth : MonoBehaviour
 			bitsswipe.particleSystem.Emit(1);
 			HighScore.score += 100;
 			Destroy(col.gameObject);
+			HighScore.bitcount ++;
 		}
 		if (col.tag == "Powerup1") 
 			{
@@ -92,11 +98,11 @@ public class PlayerHealth : MonoBehaviour
 			megabytetailmid.particleSystem.Emit(15);
 			megabytetailmidright.particleSystem.Emit(15);
 			megabytetailleft.particleSystem.Emit(15);
-			megabytetaillright.particleSystem.Emit(15);
+			megabytetailright.particleSystem.Emit(15);
 			}
 		if (col.tag == "EnemyCablebreak")
 			{
-				health = -2;
+				health  = -2;
 				Destroy (col.gameObject);
 			}
 	}
