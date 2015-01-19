@@ -1,0 +1,12 @@
+Hallo #
+
+<<<<<<< HEAD
+//with a comment for programmers
+here goes some code
+
+void function (){
+	here I write a function;
+}
+=======
+this code is positive + 
+>>>>>>> origin/master
