@@ -30,7 +30,7 @@ public class HighScore : MonoBehaviour
 
 	void OnGUI()
 	{
-		GUI.Label (new Rect (10, 10, 400, 50), "Score: " + score);
-		GUI.Label (new Rect (10, 40, 400, 50), "Mult:" + multi);
+		GUI.Label (new Rect (25, 20, 400, 50), "+" + score);
+		GUI.Label (new Rect (435, 20, 400, 50), "x" + multi);
 	}
 }

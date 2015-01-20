@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour {
 	public float timer;
 	public float minspawntime;
 
+
 	
 	void Start ()
 	{
