@@ -4,8 +4,11 @@ using System.Collections;
 public class PlayerHealth : MonoBehaviour 
 {
 	public bool invincible;
-	public int health = 2;
+	public float health = 2;
+	public float maxHealth =2f;
+	public float hptimer;
 	public float timer;
+	public float dmg;
 
 	private GameObject score100;
 	private GameObject score500;
@@ -14,12 +17,13 @@ public class PlayerHealth : MonoBehaviour
 	private GameObject megabytetailmid;
 	private GameObject megabytetailmidright;
 	private GameObject megabytetailleft;
-	private GameObject megabytetaillright;
+	private GameObject megabytetailright;
 
 	private GameObject enemyDeath;
 	// Use this for initialization
 	void Start () {
 	
+		health = maxHealth;
 		score100 = GameObject.Find ("Score100");
 		score500 = GameObject.Find ("Score500");
 		enemyDeath = GameObject.Find ("EnemyDeath");
@@ -28,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
 		megabytetailmid = GameObject.Find ("megabytetailmid");
 		megabytetailmidright = GameObject.Find ("megabytetailmidright");
 		megabytetailleft = GameObject.Find ("megabytetailleft");
-		megabytetaillright = GameObject.Find ("megabytetaillright");
+		megabytetailright = GameObject.Find ("megabytetailright");
 
 	}
 	
@@ -40,6 +44,11 @@ public class PlayerHealth : MonoBehaviour
 			timer = 0;
 			invincible = false;
 		}
+			hptimer -= Time.deltaTime;
+			if (hptimer <= 0) {
+				hptimer = 0;
+				health =2;
+			}
 		if (health <= 0) 
 		{
 			Destroy(this.gameObject);
@@ -51,8 +60,10 @@ public class PlayerHealth : MonoBehaviour
 	{
 		if (col.tag == "Enemy" && !invincible)
 		{
-			health--;
+			health -= dmg;
 			Destroy (col.gameObject);
+			HighScore.multi =1;
+			hptimer =4;
 		}
 
 		else if (col.tag == "Enemy" && invincible) 
@@ -61,6 +72,10 @@ public class PlayerHealth : MonoBehaviour
 			enemyDeath.gameObject.particleSystem.Emit(10);
 			Destroy (col.gameObject);
 			HighScore.score += 500;
+			HighScore.bitcount ++;
+		}
+		if (health > maxHealth) {
+			health = maxHealth;
 		}
 		if (col.tag == "Collectible1") 
 		{
@@ -79,7 +94,7 @@ public class PlayerHealth : MonoBehaviour
 			megabytetailmid.particleSystem.Emit(15);
 			megabytetailmidright.particleSystem.Emit(15);
 			megabytetailleft.particleSystem.Emit(15);
-			megabytetaillright.particleSystem.Emit(15);
+			megabytetailright.particleSystem.Emit(15);
 			}
 		if (col.tag == "EnemyCablebreak")
 			{
